@@ -8,18 +8,6 @@
 
 @protocol ADALLoginButtonDelegate;
 
-/*!
- @abstract A button that initiates a log in or log out flow upon tapping.
- @discussion `ADALLoginButton` works with `[FBSDKAccessToken currentAccessToken]` to
- determine what to display, and automatically starts authentication when tapped (i.e.,
- you do not need to manually subscribe action targets).
- 
- Like `ADAuthenticationContext`, you should make sure your app delegate is connected to
- `FBSDKApplicationDelegate` in order for the button's delegate to receive messages.
- 
- `ADALLoginButton` has a fixed height of @c 30 pixels, but you may change the width. `initWithFrame:CGRectZero`
- will size the button to its minimum frame.
- */
 @interface ADALLoginButton : ADALButton
 
 /*!
