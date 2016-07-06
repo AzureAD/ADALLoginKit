@@ -7,9 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A3C6B96A7E0B66824042ECF /* libPods-ADALLoginKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F5F7341F4E25D030B6D7A8 /* libPods-ADALLoginKit.a */; };
 		FBC51A9C1D2DAD360001D74D /* ADALLoginKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FBC51A9B1D2DAD360001D74D /* ADALLoginKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBC51AA31D2DAD360001D74D /* ADALLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBC51A981D2DAD360001D74D /* ADALLoginKit.framework */; };
 		FBC51AA81D2DAD360001D74D /* ADALLoginKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FBC51AA71D2DAD360001D74D /* ADALLoginKitTests.m */; };
+		FBC51AB41D2DAEA90001D74D /* SamplesApplicationData.h in Headers */ = {isa = PBXBuildFile; fileRef = FBC51AB21D2DAEA90001D74D /* SamplesApplicationData.h */; };
+		FBC51AB51D2DAEA90001D74D /* SamplesApplicationData.m in Sources */ = {isa = PBXBuildFile; fileRef = FBC51AB31D2DAEA90001D74D /* SamplesApplicationData.m */; };
+		FBC51AB81D2DB04A0001D74D /* ADALLoginButton.h in Headers */ = {isa = PBXBuildFile; fileRef = FBC51AB61D2DB04A0001D74D /* ADALLoginButton.h */; };
+		FBC51AB91D2DB04A0001D74D /* ADALLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FBC51AB71D2DB04A0001D74D /* ADALLoginButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,12 +28,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ADB025EC8674CA43AC2D8668 /* Pods-ADALLoginKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ADALLoginKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ADALLoginKit/Pods-ADALLoginKit.debug.xcconfig"; sourceTree = "<group>"; };
+		E8F5F7341F4E25D030B6D7A8 /* libPods-ADALLoginKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ADALLoginKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBC51A981D2DAD360001D74D /* ADALLoginKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ADALLoginKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBC51A9B1D2DAD360001D74D /* ADALLoginKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ADALLoginKit.h; sourceTree = "<group>"; };
 		FBC51A9D1D2DAD360001D74D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBC51AA21D2DAD360001D74D /* ADALLoginKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ADALLoginKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBC51AA71D2DAD360001D74D /* ADALLoginKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADALLoginKitTests.m; sourceTree = "<group>"; };
 		FBC51AA91D2DAD360001D74D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBC51AB21D2DAEA90001D74D /* SamplesApplicationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SamplesApplicationData.h; sourceTree = "<group>"; };
+		FBC51AB31D2DAEA90001D74D /* SamplesApplicationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SamplesApplicationData.m; sourceTree = "<group>"; };
+		FBC51AB61D2DB04A0001D74D /* ADALLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ADALLoginButton.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		FBC51AB71D2DB04A0001D74D /* ADALLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ADALLoginButton.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		FBDAF55A53CEE29F5B0C8C26 /* Pods-ADALLoginKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ADALLoginKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-ADALLoginKit/Pods-ADALLoginKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A3C6B96A7E0B66824042ECF /* libPods-ADALLoginKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,12 +63,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7554144C9BDFF32D3555AC45 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E8F5F7341F4E25D030B6D7A8 /* libPods-ADALLoginKit.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A56806FD10902E4024ABAF1D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ADB025EC8674CA43AC2D8668 /* Pods-ADALLoginKit.debug.xcconfig */,
+				FBDAF55A53CEE29F5B0C8C26 /* Pods-ADALLoginKit.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		FBC51A8E1D2DAD360001D74D = {
 			isa = PBXGroup;
 			children = (
 				FBC51A9A1D2DAD360001D74D /* ADALLoginKit */,
 				FBC51AA61D2DAD360001D74D /* ADALLoginKitTests */,
 				FBC51A991D2DAD360001D74D /* Products */,
+				A56806FD10902E4024ABAF1D /* Pods */,
+				7554144C9BDFF32D3555AC45 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +105,10 @@
 			children = (
 				FBC51A9B1D2DAD360001D74D /* ADALLoginKit.h */,
 				FBC51A9D1D2DAD360001D74D /* Info.plist */,
+				FBC51AB21D2DAEA90001D74D /* SamplesApplicationData.h */,
+				FBC51AB31D2DAEA90001D74D /* SamplesApplicationData.m */,
+				FBC51AB61D2DB04A0001D74D /* ADALLoginButton.h */,
+				FBC51AB71D2DB04A0001D74D /* ADALLoginButton.m */,
 			);
 			path = ADALLoginKit;
 			sourceTree = "<group>";
@@ -94,6 +130,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBC51A9C1D2DAD360001D74D /* ADALLoginKit.h in Headers */,
+				FBC51AB41D2DAEA90001D74D /* SamplesApplicationData.h in Headers */,
+				FBC51AB81D2DB04A0001D74D /* ADALLoginButton.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,10 +142,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBC51AAC1D2DAD360001D74D /* Build configuration list for PBXNativeTarget "ADALLoginKit" */;
 			buildPhases = (
+				3C6173F58AC477357D625799 /* 📦 Check Pods Manifest.lock */,
 				FBC51A931D2DAD360001D74D /* Sources */,
 				FBC51A941D2DAD360001D74D /* Frameworks */,
 				FBC51A951D2DAD360001D74D /* Headers */,
 				FBC51A961D2DAD360001D74D /* Resources */,
+				3BD3F7C72B2C7B22B1C983A5 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -194,11 +234,46 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3BD3F7C72B2C7B22B1C983A5 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ADALLoginKit/Pods-ADALLoginKit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3C6173F58AC477357D625799 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FBC51A931D2DAD360001D74D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBC51AB51D2DAEA90001D74D /* SamplesApplicationData.m in Sources */,
+				FBC51AB91D2DB04A0001D74D /* ADALLoginButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +390,7 @@
 		};
 		FBC51AAD1D2DAD360001D74D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADB025EC8674CA43AC2D8668 /* Pods-ADALLoginKit.debug.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -331,6 +407,7 @@
 		};
 		FBC51AAE1D2DAD360001D74D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBDAF55A53CEE29F5B0C8C26 /* Pods-ADALLoginKit.release.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -384,6 +461,7 @@
 				FBC51AAE1D2DAD360001D74D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FBC51AAF1D2DAD360001D74D /* Build configuration list for PBXNativeTarget "ADALLoginKitTests" */ = {
 			isa = XCConfigurationList;
@@ -392,6 +470,7 @@
 				FBC51AB11D2DAD360001D74D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,37 +1,25 @@
-//
-//  SamplesApplicationData.m
-//  ADALLoginKit
-//
-//  Created by Brandon Werner on 7/6/16.
-//  Copyright © 2016 Microsoft. All rights reserved.
-//
-
 #import "SamplesApplicationData.h"
-
-@interface SamplesApplicationData ()
-
-@end
 
 @implementation SamplesApplicationData
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
++(id) getInstance
+{
+    static SamplesApplicationData *instance = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        instance = [[self alloc] init];
+        NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"info" ofType:@"plist"]];
+        instance.clientId = [dictionary objectForKey:@"microsoftClientId"];
+        instance.redirectUriString = [dictionary objectForKey:@"microsoftRedirectUri"];
+        instance.authority = @"https://login.microsoftonline.com/common";
+        instance.resourceId = @"https://graph.windows.net";
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+        
+    });
+    
+    return instance;
 }
-*/
 
 @end
