@@ -29,27 +29,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - Properties
-
-- (FBSDKDefaultAudience)defaultAudience
-{
-    return _loginManager.defaultAudience;
-}
-
-- (void)setDefaultAudience:(FBSDKDefaultAudience)defaultAudience
-{
-    _loginManager.defaultAudience = defaultAudience;
-}
-
-- (FBSDKLoginBehavior)loginBehavior
-{
-    return _loginManager.loginBehavior;
-}
-
-- (void)setLoginBehavior:(FBSDKLoginBehavior)loginBehavior
-{
-    _loginManager.loginBehavior = loginBehavior;
-}
 
 #pragma mark - UIView
 
@@ -107,7 +86,7 @@
 }
 
 
-#pragma mark - FBSDKButton
+#pragma mark - ADALButton
 
 - (void)configureButton
 {
@@ -131,7 +110,7 @@
     [self addTarget:self action:@selector(_buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_accessTokenDidChangeNotification:)
-                                                 name:FBSDKAccessTokenDidChangeNotification
+                                                 name:AccessTokenDidChangeNotification
                                                object:nil];
 }
 
@@ -139,36 +118,36 @@
 
 - (void)_accessTokenDidChangeNotification:(NSNotification *)notification
 {
-    if (notification.userInfo[FBSDKAccessTokenDidChangeUserID]) {
+    if (notification.userInfo[AccessTokenDidChangeUserID]) {
         [self _updateContent];
     }
 }
 
 - (void)_buttonPressed:(id)sender
 {
-    [self logTapEventWithEventName:FBSDKAppEventNameADALLoginButtonDidTap parameters:[self analyticsParameters]];
-    if ([FBSDKAccessToken currentAccessToken]) {
+    [self logTapEventWithEventName:AppEventNameADALLoginButtonDidTap parameters:[self analyticsParameters]];
+    if ([**** currentAccessToken]) {
         NSString *title = nil;
         
         if (_userName) {
             NSString *localizedFormatString =
-            NSLocalizedStringWithDefaultValue(@"LoginButton.LoggedInAs", @"ADAL", [FBSDKInternalUtility bundleForStrings],
+            NSLocalizedStringWithDefaultValue(@"LoginButton.LoggedInAs", @"ADAL",
                                               @"Logged in as %@",
                                               @"The format string for the ADALLoginButton label when the user is logged in");
             title = [NSString localizedStringWithFormat:localizedFormatString, _userName];
         } else {
             NSString *localizedLoggedIn =
-            NSLocalizedStringWithDefaultValue(@"LoginButton.LoggedIn", @"ADAL", [FBSDKInternalUtility bundleForStrings],
+            NSLocalizedStringWithDefaultValue(@"LoginButton.LoggedIn", @"ADAL",
                                               @"Logged in using Facebook",
                                               @"The fallback string for the ADALLoginButton label when the user name is not available yet");
             title = localizedLoggedIn;
         }
         NSString *cancelTitle =
-        NSLocalizedStringWithDefaultValue(@"LoginButton.CancelLogout", @"ADAL", [FBSDKInternalUtility bundleForStrings],
+        NSLocalizedStringWithDefaultValue(@"LoginButton.CancelLogout", @"ADAL",
                                           @"Cancel",
                                           @"The label for the ADALLoginButton action sheet to cancel logging out");
         NSString *logOutTitle =
-        NSLocalizedStringWithDefaultValue(@"LoginButton.ConfirmLogOut", @"ADAL", [FBSDKInternalUtility bundleForStrings],
+        NSLocalizedStringWithDefaultValue(@"LoginButton.ConfirmLogOut", @"ADAL",
                                           @"Log Out",
                                           @"The label for the ADALLoginButton action sheet to confirm logging out");
 #pragma clang diagnostic push
@@ -195,11 +174,11 @@
         
         if (self.publishPermissions.count > 0) {
             [_loginManager logInWithPublishPermissions:self.publishPermissions
-                                    fromViewController:[FBSDKInternalUtility viewControllerForView:self]
+                                    fromViewController:[ADALInternalUtility viewControllerForView:self]
                                                handler:handler];
         } else {
             [_loginManager logInWithReadPermissions:self.readPermissions
-                                 fromViewController:[FBSDKInternalUtility viewControllerForView:self]
+                                 fromViewController:[ADALInternalUtility viewControllerForView:self]
                                             handler:handler];
         }
     }
@@ -207,7 +186,7 @@
 
 - (NSString *)_logOutTitle
 {
-    return NSLocalizedStringWithDefaultValue(@"LoginButton.LogOut", @"ADAL", [FBSDKInternalUtility bundleForStrings],
+    return NSLocalizedStringWithDefaultValue(@"LoginButton.LogOut", @"ADAL",
                                              @"Log out",
                                              @"The label for the ADALLoginButton when the user is currently logged in");
     ;
@@ -215,30 +194,29 @@
 
 - (NSString *)_longLogInTitle
 {
-    return NSLocalizedStringWithDefaultValue(@"LoginButton.LogInLong", @"ADAL", [FBSDKInternalUtility bundleForStrings],
+    return NSLocalizedStringWithDefaultValue(@"LoginButton.LogInLong", @"ADAL",
                                              @"Log in with Facebook",
                                              @"The long label for the ADALLoginButton when the user is currently logged out");
 }
 
 - (NSString *)_shortLogInTitle
 {
-    return NSLocalizedStringWithDefaultValue(@"LoginButton.LogIn", @"ADAL", [FBSDKInternalUtility bundleForStrings],
+    return NSLocalizedStringWithDefaultValue(@"LoginButton.LogIn", @"ADAL",
                                              @"Log in",
                                              @"The short label for the ADALLoginButton when the user is currently logged out");
 }
 
 - (void)_updateContent
 {
-    self.selected = ([FBSDKAccessToken currentAccessToken] != nil);
-    if ([FBSDKAccessToken currentAccessToken]) {
-        if (![[FBSDKAccessToken currentAccessToken].userID isEqualToString:_userID]) {
-            FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me?fields=id,name"
-                                                                           parameters:nil
-                                                                                flags:FBSDKGraphRequestFlagDisableErrorRecovery];
-            [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                NSString *userID = [FBSDKTypeUtility stringValue:result[@"id"]];
-                if (!error && [[FBSDKAccessToken currentAccessToken].userID isEqualToString:userID]) {
-                    _userName = [FBSDKTypeUtility stringValue:result[@"name"]];
+    self.selected = ([ **** currentAccessToken] != nil);
+    if ([ADALAccessToken currentAccessToken]) {
+        if (![[**** currentAccessToken].userID isEqualToString:_userID]) {
+            ADALGraphRequest *request = [[ADALGraphRequest alloc] initWithGraphPath:@"me?fields=id,name"
+                                                                           parameters:nil];
+            [request startWithCompletionHandler:^(ADALRequestConnection *connection, id result, NSError *error) {
+                NSString *userID = [ADALTypeUtility stringValue:result[@"id"]];
+                if (!error && [[ADALAccessToken currentAccessToken].userID isEqualToString:userID]) {
+                    _userName = [ADALTypeUtility stringValue:result[@"name"]];
                     _userID = userID;
                 }
             }];
