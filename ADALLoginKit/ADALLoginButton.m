@@ -7,17 +7,24 @@
 //
 
 #import "ADALLoginButton.h"
-
-#import "ADALLoginButton.h"
+#import <UIKit/UIKit.h>
+#import "ADAL/ADAL.h"
+#import "SamplesApplicationData.h"
+#import "ADAL/ADAuthenticationContext.h"
 
 
 @interface ADALLoginButton()
+
+- (NSString *) _shortLogInTitle;
+- (NSString *) _longLogInTitle;
+- (NSString *) _logOutTitle;
+
+
 @end
 
 @implementation ADALLoginButton
 {
-    BOOL _hasShownTooltipBubble;
-    ADALLoginManager *_loginManager;
+
     NSString *_userID;
     NSString *_userName;
 }
@@ -30,67 +37,21 @@
 }
 
 
-#pragma mark - UIView
-
-- (void)didMoveToWindow
-{
-    [super didMoveToWindow];
-    
-    if (self.window &&
-        ((self.tooltipBehavior == ADALLoginButtonTooltipBehaviorForceDisplay) || !_hasShownTooltipBubble)) {
-        [self performSelector:@selector(_showTooltipIfNeeded) withObject:nil afterDelay:0];
-        _hasShownTooltipBubble = YES;
-    }
-}
-
-#pragma mark - Layout
-
-- (void)layoutSubviews
-{
-    CGSize size = self.bounds.size;
-    CGSize longTitleSize = [self sizeThatFits:size title:[self _longLogInTitle]];
-    NSString *title = (longTitleSize.width <= size.width ?
-                       [self _longLogInTitle] :
-                       [self _shortLogInTitle]);
-    if (![title isEqualToString:[self titleForState:UIControlStateNormal]]) {
-        [self setTitle:title forState:UIControlStateNormal];
-    }
-    
-    [super layoutSubviews];
-}
-
-- (CGSize)sizeThatFits:(CGSize)size
-{
-    if ([self isHidden]) {
-        return CGSizeZero;
-    }
-    CGSize selectedSize = [self sizeThatFits:size title:[self _logOutTitle]];
-    CGSize normalSize = [self sizeThatFits:CGSizeMake(CGFLOAT_MAX, size.height) title:[self _longLogInTitle]];
-    if (normalSize.width > size.width) {
-        return normalSize = [self sizeThatFits:size title:[self _shortLogInTitle]];
-    }
-    return CGSizeMake(MAX(normalSize.width, selectedSize.width), MAX(normalSize.height, selectedSize.height));
-}
-
-#pragma mark - UIActionSheetDelegate
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        ADAuthenticationContext *login = [[ADAuthenticationContext alloc] init];
-        [login logOut];
-        [self.delegate loginButtonDidLogOut:self];
-    }
-}
 
 
+
+#
 #pragma mark - ADALButton
 
 - (void)configureButton
 {
-    _loginManager = [[ADAuthenticationContext alloc] init];
+    
+    SamplesApplicationData* data = [SamplesApplicationData getInstance];
+    
+    ADAuthenticationError* error = nil;
+    ADAuthenticationContext* context = [[ADAuthenticationContext alloc] initWithAuthority:data.authority
+                                                                        validateAuthority:true
+                                                                                    error:&error];
     
     NSString *logInTitle = [self _shortLogInTitle];
     NSString *logOutTitle = [self _logOutTitle];
@@ -112,17 +73,9 @@
                                              selector:@selector(_accessTokenDidChangeNotification:)
                                                  name:AccessTokenDidChangeNotification
                                                object:nil];
-}
 
 #pragma mark - Helper Methods
-
-- (void)_accessTokenDidChangeNotification:(NSNotification *)notification
-{
-    if (notification.userInfo[AccessTokenDidChangeUserID]) {
-        [self _updateContent];
-    }
-}
-
+    
 - (void)_buttonPressed:(id)sender
 {
     [self logTapEventWithEventName:AppEventNameADALLoginButtonDidTap parameters:[self analyticsParameters]];
@@ -134,7 +87,7 @@
             NSLocalizedStringWithDefaultValue(@"LoginButton.LoggedInAs", @"ADAL",
                                               @"Logged in as %@",
                                               @"The format string for the ADALLoginButton label when the user is logged in");
-            title = [NSString localizedStringWithFormat:localizedFormatString, _userName];
+            title = [NSString StringWithFormat: _userName];
         } else {
             NSString *localizedLoggedIn =
             NSLocalizedStringWithDefaultValue(@"LoginButton.LoggedIn", @"ADAL",
@@ -184,27 +137,21 @@
     }
 }
 
-- (NSString *)_logOutTitle
-{
-    return NSLocalizedStringWithDefaultValue(@"LoginButton.LogOut", @"ADAL",
-                                             @"Log out",
-                                             @"The label for the ADALLoginButton when the user is currently logged in");
-    ;
-}
-
-- (NSString *)_longLogInTitle
-{
-    return NSLocalizedStringWithDefaultValue(@"LoginButton.LogInLong", @"ADAL",
-                                             @"Log in with Facebook",
-                                             @"The long label for the ADALLoginButton when the user is currently logged out");
-}
-
-- (NSString *)_shortLogInTitle
-{
-    return NSLocalizedStringWithDefaultValue(@"LoginButton.LogIn", @"ADAL",
-                                             @"Log in",
-                                             @"The short label for the ADALLoginButton when the user is currently logged out");
-}
+    - (NSString *)_logOutTitle
+    {
+        return NSString(@"Log Out");
+        
+    }
+    
+    - (NSString *)_longLogInTitle
+    {
+        return NSString(@"Log In");
+    }
+    
+    - (NSString *)_shortLogInTitle
+    {
+        return NSString(@"Log in");
+    }
 
 - (void)_updateContent
 {

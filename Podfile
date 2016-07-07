@@ -1,6 +1,6 @@
  target 'ADALLoginKit' do
   
-   pod 'ADALiOS'
+   pod 'ADAL'
     
 end
 
